@@ -1,30 +1,91 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+    <div class="app-wrapper">
+        <div class="app">
+            <NavBar v-if="$store.state.user"/>
+        </div>
+    </div>
   <router-view/>
 </template>
 
+<script>
+import NavBar from "./components/NavBar.vue"
+import { onBeforeMount } from "vue"
+import { useStore } from "vuex"
+import 'bootstrap/dist/css/bootstrap.min.css'
+export default {
+    name: "app",
+    components: {NavBar},
+    setup(){
+        const store = useStore()
+
+        onBeforeMount(() => {
+            store.dispatch('fetchUser')
+        })
+    }
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Quicksand", sans-serif;
 }
 
-nav {
-  padding: 30px;
+.app{
+    display: flex;
+    flex-direction: column;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+.link {
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: black;
+}
+
+.link-light {
+    color: #fff;
+}
+
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.top {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.middle {
+  border-radius: 0;
+  margin-bottom: -1px;
+}
+
+.bottom {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 </style>

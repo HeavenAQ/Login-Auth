@@ -1,18 +1,35 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <main class="home">
+      <div class="app-wrapper">
+          <div class="app">
+              <h1>Hi there!</h1>
+              <h3>{{ userEmail }}</h3>
+          </div>
+      </div>
+  </main>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { auth } from "../firebase"
+export default{
+    data(){
+        return{
+            userEmail: null,
+        }
+    },
+    created(){
+        this.getUserInfo();
+    },
+    methods: {
+        getUserInfo(){
+            this.userEmail = auth.currentUser.email;
+            return;
+        }
 
-export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
+    }
 }
 </script>
+
+<style scoped>
+.app { text-align: center; margin-top: 50px;}
+</style>
