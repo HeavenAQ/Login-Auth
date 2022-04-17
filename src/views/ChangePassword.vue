@@ -51,7 +51,7 @@ export default {
                 //try to update the password 
                 updatePassword(auth.currentUser, this.newPassword).then(()=>{
                     alert("Successful!")
-                    router.push("/login")
+                    this.$store.dispatch('logout')
                 }).catch(error => {
                     
                     //catch if there is an error
